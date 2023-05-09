@@ -1,0 +1,57 @@
+﻿@model PersonasMVC.Models.TableModels.IngresoPersonasModel
+
+@{
+    ViewBag.Title = "Agregar una nueva persona";
+}
+
+<h2>@ViewBag.Title</h2>
+
+
+<div class="row">
+
+    <div class="col-md-12">
+
+        @using (Html.BeginForm("Add", "Personas", FormMethod.Post, new { role = "form", @class = "" }))
+        {
+            @Html.AntiForgeryToken()
+            
+            @Html.ValidationMessage("error", new { @class = "text-danger" })
+            <br />
+            @Html.LabelFor(d => d.Nombres)
+            <br />
+            @Html.TextBoxFor(d => d.Nombres, new { @class = "form-control" })
+            <br />
+            @Html.LabelFor(d => d.Apellidos)
+            <br />
+            @Html.TextBoxFor(d => d.Apellidos, new { @class = "form-control" })
+
+            <br />
+            @Html.LabelFor(d => d.FechaNacimiento)
+            <br />
+            @Html.TextBoxFor(d => d.FechaNacimiento, new { @class = "form-control" })
+
+            <br />
+            @Html.LabelFor(d => d.idEstadoCivil)
+            <br />
+            @Html.TextBoxFor(d => d.idEstadoCivil, new { @class = "form-control" })
+            <br />
+            @Html.LabelFor(d => d.idGradoAcademico)
+            <br />
+            @Html.TextBoxFor(d => d.idGradoAcademico, new { @class = "form-control" })
+            <br />
+            @Html.LabelFor(d => d.Direccion)
+            <br />
+            @Html.TextBoxFor(d => d.Direccion, new { @class = "form-control" })
+
+            <div style="text-align:right;">
+                <input type="submit" class="btn btn-success" value="Guardar" />
+            </div>
+
+
+        }
+
+
+    </div>
+
+</div>
+

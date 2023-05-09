@@ -1,0 +1,65 @@
+﻿@model List<PersonasMVC.Models.TableViewModels.PersonasModel>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Personas</h2>
+
+<div class="row">
+
+    <div class="col-lg-12">
+
+        <table class="table table-bordered">
+
+            <tr>
+                <th>idPersona</th>
+                <th>Nombres</th>
+                <th>Apellidos</th>
+                <th>FechaNacimiento</th>
+                <th>idEstadoCivil</th>
+                <th>idGradoAcademico</th>
+                <th>Direccion</th>
+
+            </tr>
+
+            @foreach (var info in Model)
+            {
+        <tr>
+
+            <td>@info.Id</td>
+            <td>@info.Nombres</td>
+            <td>@info.Apellidos</td>
+            <td>@info.FechaNacimiento</td>
+            <td>@info.idEstadoCivil</td>
+            <td>@info.idGradoAcademico</td>
+            <td>@info.Direccion</td>
+            <td>
+                <input onclick="document.location.href='@Url.Content("~/Personas/Edit/" + info.Id)'" type="button" value="Editar" class="btn btn-default" />
+            </td>
+
+        </tr>
+
+
+            }
+
+        </table>
+
+    </div>
+
+
+</div>
+
+<br />
+<br />
+
+<div class="row">
+
+    <div class="col-lg-12">
+
+        <input type="button", class="btn btn-primary", onclick="document.location.href='@Url.Content("~/Personas/Add")'" value="Nuevo"/>
+
+    </div>
+
+</div>
+
+

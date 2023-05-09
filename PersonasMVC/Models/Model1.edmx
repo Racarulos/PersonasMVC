@@ -1,0 +1,227 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="PersonasModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="EstadoCivil">
+          <Key>
+            <PropertyRef Name="idEstadoCivil" />
+          </Key>
+          <Property Name="idEstadoCivil" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="GradoAcademico">
+          <Key>
+            <PropertyRef Name="idGradoAcademico" />
+          </Key>
+          <Property Name="idGradoAcademico" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="InfoPersonas">
+          <Key>
+            <PropertyRef Name="idPersona" />
+          </Key>
+          <Property Name="idPersona" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombres" Type="varchar" MaxLength="100" />
+          <Property Name="Apellidos" Type="varchar" MaxLength="100" />
+          <Property Name="FechaNacimiento" Type="date" />
+          <Property Name="idEstadoCivil" Type="int" />
+          <Property Name="idGradoAcademico" Type="int" />
+          <Property Name="Direccion" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="idUsuario" />
+          </Key>
+          <Property Name="idUsuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Usuario" Type="varchar" MaxLength="50" />
+          <Property Name="Pass" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK__InfoPerso__idEst__286302EC">
+          <End Role="EstadoCivil" Type="Self.EstadoCivil" Multiplicity="0..1" />
+          <End Role="InfoPersonas" Type="Self.InfoPersonas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EstadoCivil">
+              <PropertyRef Name="idEstadoCivil" />
+            </Principal>
+            <Dependent Role="InfoPersonas">
+              <PropertyRef Name="idEstadoCivil" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__InfoPerso__idGra__29572725">
+          <End Role="GradoAcademico" Type="Self.GradoAcademico" Multiplicity="0..1" />
+          <End Role="InfoPersonas" Type="Self.InfoPersonas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GradoAcademico">
+              <PropertyRef Name="idGradoAcademico" />
+            </Principal>
+            <Dependent Role="InfoPersonas">
+              <PropertyRef Name="idGradoAcademico" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PersonasModelStoreContainer">
+          <EntitySet Name="EstadoCivil" EntityType="Self.EstadoCivil" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GradoAcademico" EntityType="Self.GradoAcademico" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="InfoPersonas" EntityType="Self.InfoPersonas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__InfoPerso__idEst__286302EC" Association="Self.FK__InfoPerso__idEst__286302EC">
+            <End Role="EstadoCivil" EntitySet="EstadoCivil" />
+            <End Role="InfoPersonas" EntitySet="InfoPersonas" />
+          </AssociationSet>
+          <AssociationSet Name="FK__InfoPerso__idGra__29572725" Association="Self.FK__InfoPerso__idGra__29572725">
+            <End Role="GradoAcademico" EntitySet="GradoAcademico" />
+            <End Role="InfoPersonas" EntitySet="InfoPersonas" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PersonasModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="GradoAcademico">
+          <Key>
+            <PropertyRef Name="idGradoAcademico" />
+          </Key>
+          <Property Name="idGradoAcademico" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="InfoPersonas" Relationship="PersonasModel.FK__InfoPerso__idGra__29572725" FromRole="GradoAcademico" ToRole="InfoPersonas" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="idUsuario" />
+          </Key>
+          <Property Name="idUsuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Usuario1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Pass" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityContainer Name="PersonasEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="GradoAcademico" EntityType="Self.GradoAcademico" />
+          <EntitySet Name="Usuario" EntityType="Self.Usuario" />
+          <EntitySet Name="InfoPersonas" EntityType="PersonasModel.InfoPersonas" />
+          <AssociationSet Name="FK__InfoPerso__idGra__29572725" Association="PersonasModel.FK__InfoPerso__idGra__29572725">
+            <End Role="GradoAcademico" EntitySet="GradoAcademico" />
+            <End Role="InfoPersonas" EntitySet="InfoPersonas" />
+          </AssociationSet>
+          <EntitySet Name="EstadoCivil" EntityType="PersonasModel.EstadoCivil" />
+          <AssociationSet Name="FK__InfoPerso__idEst__286302EC" Association="PersonasModel.FK__InfoPerso__idEst__286302EC">
+            <End Role="EstadoCivil" EntitySet="EstadoCivil" />
+            <End Role="InfoPersonas" EntitySet="InfoPersonas" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="InfoPersonas">
+          <Key>
+            <PropertyRef Name="idPersona" />
+          </Key>
+          <Property Name="idPersona" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombres" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Apellidos" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="FechaNacimiento" Type="DateTime" Precision="0" />
+          <Property Name="idEstadoCivil" Type="Int32" />
+          <Property Name="idGradoAcademico" Type="Int32" />
+          <Property Name="Direccion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="GradoAcademico" Relationship="PersonasModel.FK__InfoPerso__idGra__29572725" FromRole="InfoPersonas" ToRole="GradoAcademico" />
+          <NavigationProperty Name="EstadoCivil" Relationship="PersonasModel.FK__InfoPerso__idEst__286302EC" FromRole="InfoPersonas" ToRole="EstadoCivil" />
+        </EntityType>
+        <Association Name="FK__InfoPerso__idGra__29572725">
+          <End Type="PersonasModel.GradoAcademico" Role="GradoAcademico" Multiplicity="0..1" />
+          <End Type="PersonasModel.InfoPersonas" Role="InfoPersonas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GradoAcademico">
+              <PropertyRef Name="idGradoAcademico" />
+            </Principal>
+            <Dependent Role="InfoPersonas">
+              <PropertyRef Name="idGradoAcademico" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="EstadoCivil">
+          <Key>
+            <PropertyRef Name="idEstadoCivil" />
+          </Key>
+          <Property Name="idEstadoCivil" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="InfoPersonas" Relationship="PersonasModel.FK__InfoPerso__idEst__286302EC" FromRole="EstadoCivil" ToRole="InfoPersonas" />
+        </EntityType>
+        <Association Name="FK__InfoPerso__idEst__286302EC">
+          <End Type="PersonasModel.EstadoCivil" Role="EstadoCivil" Multiplicity="0..1" />
+          <End Type="PersonasModel.InfoPersonas" Role="InfoPersonas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EstadoCivil">
+              <PropertyRef Name="idEstadoCivil" />
+            </Principal>
+            <Dependent Role="InfoPersonas">
+              <PropertyRef Name="idEstadoCivil" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="PersonasModelStoreContainer" CdmEntityContainer="PersonasEntities">
+          <EntitySetMapping Name="GradoAcademico">
+            <EntityTypeMapping TypeName="PersonasModel.GradoAcademico">
+              <MappingFragment StoreEntitySet="GradoAcademico">
+                <ScalarProperty Name="idGradoAcademico" ColumnName="idGradoAcademico" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usuario">
+            <EntityTypeMapping TypeName="PersonasModel.Usuario">
+              <MappingFragment StoreEntitySet="Usuario">
+                <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
+                <ScalarProperty Name="Usuario1" ColumnName="Usuario" />
+                <ScalarProperty Name="Pass" ColumnName="Pass" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="InfoPersonas">
+            <EntityTypeMapping TypeName="PersonasModel.InfoPersonas">
+              <MappingFragment StoreEntitySet="InfoPersonas">
+                <ScalarProperty Name="Direccion" ColumnName="Direccion" />
+                <ScalarProperty Name="idGradoAcademico" ColumnName="idGradoAcademico" />
+                <ScalarProperty Name="idEstadoCivil" ColumnName="idEstadoCivil" />
+                <ScalarProperty Name="FechaNacimiento" ColumnName="FechaNacimiento" />
+                <ScalarProperty Name="Apellidos" ColumnName="Apellidos" />
+                <ScalarProperty Name="Nombres" ColumnName="Nombres" />
+                <ScalarProperty Name="idPersona" ColumnName="idPersona" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EstadoCivil">
+            <EntityTypeMapping TypeName="PersonasModel.EstadoCivil">
+              <MappingFragment StoreEntitySet="EstadoCivil">
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="idEstadoCivil" ColumnName="idEstadoCivil" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
